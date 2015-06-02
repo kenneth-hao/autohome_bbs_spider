@@ -15,10 +15,10 @@ sys.setdefaultencoding('utf-8')
 class AutohomeBbsSpiderPipeline(object):
 
     keywords_maps = {
-        1: ['君威', '君越', '昂科威', '昂科拉'],
-        2: ['想买', '准备入手', '准备订车', '折', '什么颜色', '哪个好', '很喜欢', '选哪款', '对比'],
-        3: ['还是', '怎么样'],
-        4: ['GL8时尚型优惠45800合适吗', '全新英朗大家觉得多少优惠合适', '本人四十有余,选什么颜色合适', '1.5T昂科威两驱精英与2.4L两驱全新达智能的选择']
+        '1': ['君威', '君越', '昂科威', '昂科拉'],
+        '2': ['想买', '准备入手', '准备订车', '折', '什么颜色', '哪个好', '很喜欢', '选哪款', '对比'],
+        '3': ['还是', '怎么样'],
+        '4': ['GL8时尚型优惠45800合适吗', '全新英朗大家觉得多少优惠合适', '本人四十有余,选什么颜色合适', '1.5T昂科威两驱精英与2.4L两驱全新达智能的选择']
     }
 
     def process_item(self, item, spider):
@@ -26,10 +26,10 @@ class AutohomeBbsSpiderPipeline(object):
         if '北京' not in item['addr']:
             return
 
-        for (level, keywords) in AutohomeBbsSpiderPipeline.keywords_maps:
+        for (level, keywords) in AutohomeBbsSpiderPipeline.keywords_maps.items():
             for keyword in keywords:
                 if keyword in item['content']:
-                    item['key_level'] = level
+                    item['key_level'] = int(level)
                     item['keyword'] = keyword
 
                     return item

@@ -145,7 +145,6 @@ class WhatSpider(Spider):
             # like '/bbs/thread-c-166-5968706-1.html'
             href_sub = hrefs[i]
             hrefs[i] = 'http://club.autohome.com.cn' + href_sub
-            print '>>> ', texts[i].strip(), ' <<< ', hrefs[i]
 
         for next_url in hrefs:
             yield Request(next_url, callback=self.parse_post_url_pages)
