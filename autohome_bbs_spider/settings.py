@@ -14,7 +14,7 @@ SPIDER_MODULES = ['autohome_bbs_spider.spiders']
 NEWSPIDER_MODULE = 'autohome_bbs_spider.spiders'
 
 ITEM_PIPELINES = {
-    # 'autohome_bbs_spider.pipelines.AutohomeBbsSpiderPipeline': 1,
+    'autohome_bbs_spider.pipelines.AutohomeBbsSpiderPipeline': 1,
     'autohome_bbs_spider.pipelines.MySqlStorePipeline': 2,
 }
 
@@ -25,11 +25,11 @@ CONCURRENT_ITEMS = 100
 CONCURRENT_REQUESTS = 16
 
 # The maximun depth that will be allowed to crawl for any site. If zero, no limit will be imposed.
-DEPTH_LIMIT = 3
+DEPTH_LIMIT = 0
 
 # The amount of time (in secs) that the downloader should wait before downloading consecutive pages from the save website.
 # This can be used to throttle the crawling speed to avoid hitting servers too hard. Decimal number are supported.
-DOWNLOAD_DELAY = 0.5
+DOWNLOAD_DELAY = 0.05
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'autohome_bbs_spider (+http://www.yourdomain.com)'
@@ -43,3 +43,6 @@ MYSQL_HOST = '192.168.0.210'
 MYSQL_DBNAME = 'haoyuewen'
 MYSQL_USER = 'haoyuewen'
 MYSQL_PASSWD = 'JUFL7Kl5NsPX'
+
+# DELTA
+DELTA_DAYS = 7

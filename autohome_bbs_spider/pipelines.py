@@ -22,15 +22,8 @@ class AutohomeBbsSpiderPipeline(object):
 
     def process_item(self, item, spider):
 
-        if item['pub_time'] is not None and item['pub_time'] != '':
-            pub_time_t = datetime.strptime(item['pub_time'], '%Y-%m-%d %H:%M:%S')
-            now = datetime.now()
-            if (now - pub_time_t).days > 7:
-                item['week_diff'] = 2
-            else:
-                item['week_diff'] = 1
-        else:
-            item['week_diff'] = 0
+        if '北京' not in item['addr']:
+            return
 
         for word in self.words_to_filter_one:
             if word in item['content']:
@@ -87,8 +80,8 @@ class MySqlStorePipeline(object):
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if item is not None:
             conn.execute('''
-                INSERT INTO autohome_bbs_content (title, content, pub_time, author, author_url, reg_time, addr, attent_vehicle, from_url, floor, cdate)
-                VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO autohome_bbs_content_0601 (title, content, pub_time, author, author_url, reg_time, addr, attent_vehicle, from_url, floor, target_url, cdate, key_level, keyword)
+                VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ''', (item['title'],
                   item['content'],
                   item['pub_time'],
@@ -99,12 +92,11 @@ class MySqlStorePipeline(object):
                   item['attent_vehicle'],
                   item['from_url'],
                   item['floor'],
-                  now))
-
-    def _do_clear(self, conn):
-        conn.execute('''
-            DELETE FROM autohome_bbs_content
-        ''')
+                  item['target_url'],
+                  now,
+                  item['key_level'],
+                  item['keyword']
+            ))
 
     def _handler_error(self, failure, item, spider):
         log.err(failure)

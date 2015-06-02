@@ -24,3 +24,8 @@ class AutohomeBbsSpiderItem(scrapy.Item):
     from_url = scrapy.Field()
 
     floor = scrapy.Field()
+
+    target_url = scrapy.Field()
+
+    key_level = scrapy.Field()
+    keyword = scrapy.Field()
