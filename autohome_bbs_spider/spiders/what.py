@@ -18,15 +18,15 @@ class WhatSpider(Spider):
     allowed_domains = ["club.autohome.com.cn"]
     start_urls = (
         # 昂科威
-        # 'http://club.autohome.com.cn/bbs/forum-c-3554-1.html',
+        'http://club.autohome.com.cn/bbs/forum-c-3554-1.html',
         # 昂科拉
-        #'http://club.autohome.com.cn/bbs/forum-c-2896-1.html',
+        'http://club.autohome.com.cn/bbs/forum-c-2896-1.html',
         # 君越
-        #'http://club.autohome.com.cn/bbs/forum-c-834-1.html',
+        'http://club.autohome.com.cn/bbs/forum-c-834-1.html',
         # 君威
-        #'http://club.autohome.com.cn/bbs/forum-c-164-1.html',
+        'http://club.autohome.com.cn/bbs/forum-c-164-1.html',
         # 北京地区论坛
-        'http://club.autohome.com.cn/bbs/forum-a-100002-1.html',
+        #'http://club.autohome.com.cn/bbs/forum-a-100002-1.html',
     )
     # 上一次爬取的较大的页码, 用于计算符合时间差的页码
     last_mt_page = -1
