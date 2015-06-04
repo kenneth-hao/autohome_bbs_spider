@@ -17,6 +17,12 @@ class WhatSpider(Spider):
     name = "what"
     allowed_domains = ["club.autohome.com.cn"]
     start_urls = (
+        # 凯越
+        'http://club.autohome.com.cn/bbs/forum-c-875-1.html',
+        # 英朗
+        'http://club.autohome.com.cn/bbs/forum-c-982-1.html',
+        # GL8
+        'http://club.autohome.com.cn/bbs/forum-c-166-1.html',
         # 昂科威
         'http://club.autohome.com.cn/bbs/forum-c-3554-1.html',
         # 昂科拉
@@ -27,6 +33,12 @@ class WhatSpider(Spider):
         'http://club.autohome.com.cn/bbs/forum-c-164-1.html',
         # 北京地区论坛
         #'http://club.autohome.com.cn/bbs/forum-a-100002-1.html',
+        # 上海地区论坛
+        #'http://club.autohome.com.cn/bbs/forum-a-100024-1.html',
+        # 广州地区论坛
+        #'http://club.autohome.com.cn/bbs/forum-a-100006-1.html',
+        # 天津地区论坛
+        #'http://club.autohome.com.cn/bbs/forum-a-100026-1.html',
     )
     # 上一次爬取的较大的页码, 用于计算符合时间差的页码
     last_mt_page = -1

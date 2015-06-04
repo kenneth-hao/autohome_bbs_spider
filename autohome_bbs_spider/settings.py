@@ -15,7 +15,8 @@ NEWSPIDER_MODULE = 'autohome_bbs_spider.spiders'
 
 ITEM_PIPELINES = {
     'autohome_bbs_spider.pipelines.AutohomeBbsSpiderPipeline': 1,
-    'autohome_bbs_spider.pipelines.MySqlStorePipeline': 2,
+    # 'autohome_bbs_spider.pipelines.MySqlStorePipeline': 2,
+    'autohome_bbs_spider.pipelines.MongoDBPipeline': 3,
 }
 
 # The maximum number of concurrent items (per response) to process in parallel in the Item Processor. Default: 100
@@ -43,6 +44,11 @@ MYSQL_HOST = '192.168.0.210'
 MYSQL_DBNAME = 'haoyuewen'
 MYSQL_USER = 'haoyuewen'
 MYSQL_PASSWD = 'JUFL7Kl5NsPX'
+
+MONGODB_SERVER = '182.92.236.19'
+MONGODB_PORT = 27017
+MONGODB_DB = 'demo'
+MONGODB_COLLECTION = 'bbs_contents'
 
 # DELTA
 DELTA_DAYS = 7

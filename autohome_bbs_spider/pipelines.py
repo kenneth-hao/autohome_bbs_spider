@@ -7,6 +7,9 @@
 from scrapy import log
 from datetime import datetime
 from twisted.enterprise import adbapi
+from scrapy.conf import settings
+
+from pymongo import MongoClient
 
 import sys
 reload(sys)
@@ -15,24 +18,45 @@ sys.setdefaultencoding('utf-8')
 class AutohomeBbsSpiderPipeline(object):
 
     keywords_maps = {
-        '1': ['君威', '君越', '昂科威', '昂科拉'],
-        '2': ['想买', '准备入手', '准备订车', '折', '什么颜色', '哪个好', '很喜欢', '选哪款', '对比'],
-        '3': ['还是', '怎么样'],
-        '4': ['GL8时尚型优惠45800合适吗', '全新英朗大家觉得多少优惠合适', '本人四十有余,选什么颜色合适', '1.5T昂科威两驱精英与2.4L两驱全新达智能的选择']
+        '1': ['别克', 'Buick', 'buick', 'BUICK'],
+        '2': ['GL8', '凯越', '英朗', '君威', '君越', '昂科威', '昂科拉'],
+        '3': ['1.5T', '2.0L', '心动', '想买', '入手', '订车', '颜色', '哪个好', '喜欢', '哪款', '优惠', '团购', '购车'],
+        '4': ['怎么样', '对比', '便宜', '多少'],
     }
 
     def process_item(self, item, spider):
 
-        if '北京' not in item['addr']:
-            return
-
         for (level, keywords) in AutohomeBbsSpiderPipeline.keywords_maps.items():
             for keyword in keywords:
+                if keyword in item['title']:
+                    item['key_level'] = int(level)
+                    item['keyword'] = keyword
+
+                    return item
+
                 if keyword in item['content']:
                     item['key_level'] = int(level)
                     item['keyword'] = keyword
 
                     return item
+
+        return None
+
+
+class MongoDBPipeline(object):
+
+    def __init__(self):
+        uri = 'mongodb://%s:%s' % (settings['MONGODB_SERVER'], settings['MONGODB_PORT'])
+        connection = MongoClient(uri)
+        db = connection[settings['MONGODB_DB']]
+        self.collection = db[settings['MONGODB_COLLECTION']]
+
+    def process_item(self, item, spider):
+        if item is not None:
+            self.collection.insert(dict(item))
+            log.msg('Post added to MongoDB database!', level=log.DEBUG, spider=spider)
+
+            return item
 
 class MySqlStorePipeline(object):
 
