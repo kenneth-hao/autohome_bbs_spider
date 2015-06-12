@@ -20,15 +20,17 @@ class AutohomeBbsSpiderPipeline(object):
     keywords_maps = {
         '1': ['别克', 'Buick', 'buick', 'BUICK'],
         '2': ['GL8', '凯越', '英朗', '君威', '君越', '昂科威', '昂科拉'],
-        '3': ['1.5T', '2.0L', '心动', '想买', '入手', '订车', '颜色', '哪个好', '喜欢', '哪款', '优惠', '团购', '购车'],
-        '4': ['怎么样', '对比', '便宜', '多少'],
+        '3': ['1.4T', '1.5T', '1.5L', '1.6T', '1.6L', '2.0T', '2.0L', '2.4L', '3.6L', '15N', '18T', '20T', '28T',
+              '舒适型', '旗舰型', '领先型', '精英型', '豪华型', '进取型', '运动型', '尊享型', '行政版', '豪雅版', '经典版',
+              '心动', '纠结', '想买', '入手', '订车', '颜色', '哪个好', '喜欢', '哪款', '优惠', '团购', '购车'],
+        '4': ['怎么样', '对比', '便宜', '多少', '报价', '降价', 'gs', 'GS'],
     }
 
     def process_item(self, item, spider):
 
         for (level, keywords) in AutohomeBbsSpiderPipeline.keywords_maps.items():
             for keyword in keywords:
-                if keyword in item['title']:
+                if item['floor'] == '楼主' and keyword in item['title']:
                     item['key_level'] = int(level)
                     item['keyword'] = keyword
 
