@@ -12,4 +12,4 @@ REF: http://blog.csdn.net/haoyuewen812/article/details/44808425
 ---
 
 终端下执行:
-`scrapy crawl buick`
+`scrapy crawl what`
