@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from scrapy import Request
 from scrapy import Spider
-from scrapy import log
 from scrapy.conf import settings
 
 from autohome_bbs_spider.items import AutohomeBbsSpiderItem
@@ -161,7 +160,7 @@ class WhatSpider(Spider):
                 max_page = prop_util.last_lt_page
 
         if is_finish:
-            log.msg('[%s] 查询到的最大页码: [%d]' % (key, max_page), log.DEBUG)
+            self.logger.debug('[%s] 查询到的最大页码: [%d]' % (key, max_page))
             for p in range(2, max_page):
                 next_url = self._get_repl_url(response.url, p)
                 yield Request(next_url, callback=self.cb_proc_comm_post_list)
@@ -221,7 +220,7 @@ class WhatSpider(Spider):
                 min_page = prop_util.last_mt_page
 
         if is_finish:
-            log.msg('[%s] 查询到的最小页码: [%d]' % (key, min_page), log.DEBUG)
+            self.logger.debug('[%s] 查询到的最小页码: [%d]' % (key, min_page))
             for p in range(min_page, prop_util.total_page+1):
                 next_url = self._get_repl_url(response.url, p)
                 yield Request(next_url, callback=self.cb_proc_post_content)

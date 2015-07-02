@@ -9,6 +9,7 @@
 DELTA_DAYS = 7
 
 LOG_LEVEL = 'INFO'
+LOG_FILE = '~/spider_what.log'
 
 ITEM_PIPELINES = {
     'autohome_bbs_spider.pipelines.AutohomeBbsSpiderPipeline': 1,

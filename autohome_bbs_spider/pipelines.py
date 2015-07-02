@@ -11,6 +11,9 @@ from scrapy.conf import settings
 
 from pymongo import MongoClient
 
+import logging
+logger = logging.getLogger()
+
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -56,7 +59,7 @@ class MongoDBPipeline(object):
     def process_item(self, item, spider):
         if item is not None:
             self.collection.insert(dict(item))
-            log.msg('Post added to MongoDB database!', level=log.DEBUG, spider=spider)
+            logger.debug('Post added to MongoDB database!')
 
             return item
 
@@ -109,5 +112,5 @@ class MySqlStorePipeline(object):
             ))
 
     def _handler_error(self, failure, item, spider):
-        log.err(failure)
+        logger.error(failure)
 
